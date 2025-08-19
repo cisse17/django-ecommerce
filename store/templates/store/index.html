@@ -1,13 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Ma boutique </h1>
     {% for product in products %}
    
         <h1>{{ product.name }}</h1>
         <p>Prix : {{ product.prix}} £</p>
-        <p>Description : {{ product.description }}</p>
+        <!-- <a href="{% url 'product_detail' slug=product.slug %}">    
         <img src="{{ product.thumbnail.url }}" alt="{{product.name}}">
+        </a> -->
+        <a href="{{ product.get_absolute_url }}">    
+        <img src="{{ product.thumbnail.url }}" alt="{{product.name}}">
+        </a>
+        <a href="{{ product.get_absolute_url }}">    
+            voir l'article
+         </a>
   
     {% endfor %}
         
