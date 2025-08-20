@@ -33,3 +33,25 @@ def add_to_cart(request, slug):
         order.quantity += 1
         order.save()
     return redirect(reverse("product_detail", kwargs={"slug": slug}))
+
+
+def cart(request):
+    cart = get_object_or_404(Cart, user=request.user)
+    
+    return render(request, "store/cart.html", context={"orders": cart.orders.all()})
+    # return render(request, "store/cart.html", context={"cart": cart})
+
+def delete_cart(request):
+    #facon de le faire aussi
+    # cart = request.user.cart
+    # if cart:
+    #     cart.orders.all().delete()
+    #     cart.delete()
+
+    # operation wor
+    if cart := request.user.cart:
+        cart.orders.all().delete()
+        cart.delete()
+
+    
+    return redirect('boutique')
